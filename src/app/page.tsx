@@ -10,9 +10,14 @@ const Index = async () => {
       <CardContent>
         <div className="flex flex-col items-center justify-center">
           <h1 className="text-3xl my-4">UMT Tools</h1>
-          <Button asChild={true}>
-            <Link href="/shorten">Short URL</Link>
-          </Button>
+          <div className="flex items-center justify-center gap-2">
+            <Button asChild={true}>
+              <Link href="/random">Random</Link>
+            </Button>
+            <Button asChild={true}>
+              <Link href="/shorten">Short URL</Link>
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
