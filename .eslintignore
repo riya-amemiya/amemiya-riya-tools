@@ -1,0 +1,4 @@
+src/components/ui/
+next.config.mjs
+tailwind.config.js
+postcss.config.js
