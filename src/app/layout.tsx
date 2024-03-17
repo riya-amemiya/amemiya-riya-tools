@@ -4,7 +4,11 @@ import "@/styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
+import Link from "next/link";
 
+import { BreadcrumbGenerator } from "@/components/breadcrumbGenerator";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 import { defaultDescription, defaultTitle } from "@/config/defaultMetadata";
 import { defaultUrl } from "@/config/defaultUrl";
 
@@ -46,12 +50,29 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const links = ["random", "shorten"];
   return (
     <html lang="ja">
-      <body className="bg-primary text-foreground">
-        <main className="min-h-screen flex flex-col items-center justify-center w-full text-white">
-          {children}
-        </main>
+      <body className="w-full">
+        <div className="md:grid md:grid-cols-10 md:gap-4 w-full h-full">
+          <ScrollArea className="md:col-span-2 rounded-md border h-full">
+            <div className="p-4">
+              <h4 className="mb-4 text-sm font-medium leading-none">Tools</h4>
+              {links.map((tag) => (
+                <>
+                  <div className="text-sm" key={tag}>
+                    <Link href={`/${tag}`}>{tag}</Link>
+                  </div>
+                  <Separator className="my-2" />
+                </>
+              ))}
+            </div>
+          </ScrollArea>
+          <main className="md:col-span-8">
+            <BreadcrumbGenerator />
+            {children}
+          </main>
+        </div>
         <SpeedInsights />
         <Analytics />
       </body>
