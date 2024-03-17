@@ -14,6 +14,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { defaultDescription, defaultTitle } from "@/config/defaultMetadata";
 import { defaultUrl } from "@/config/defaultUrl";
+import { links } from "@/lib/links";
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
@@ -53,17 +54,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const links = ["random", "shorten"];
   const headerLinks: {
     title: string | React.ReactNode;
     href: string;
     key: string;
   }[] = [
-    {
-      title: "UMT Tools",
-      href: "/",
-      key: crypto.createHash("sha256").update("UMT Tools").digest("hex"),
-    },
     {
       title: "Source Code",
       href: "https://github.com/riya-amemiya/amemiya-riya-tools",
@@ -77,6 +72,9 @@ export default function RootLayout({
           <header>
             <nav className="p-2">
               <ul className="flex gap-6 items-center text-sm">
+                <li>
+                  <Link href="/">UMT Tools</Link>
+                </li>
                 {headerLinks.map((link) => (
                   <li key={link.key}>
                     {link.href.startsWith("http") ? (
@@ -108,12 +106,12 @@ export default function RootLayout({
               <h4 className="mb-4 text-sm font-medium leading-none">
                 <Link href="/">Tools</Link>
               </h4>
-              {links.map((tag) => (
+              {links.map(({ href }) => (
                 <Fragment
-                  key={crypto.createHash("sha256").update(tag).digest("hex")}
+                  key={crypto.createHash("sha256").update(href).digest("hex")}
                 >
                   <div className="text-sm">
-                    <Link href={`/${tag}`}>{tag}</Link>
+                    <Link href={`/${href}`}>{href}</Link>
                   </div>
                   <Separator className="my-2" />
                 </Fragment>

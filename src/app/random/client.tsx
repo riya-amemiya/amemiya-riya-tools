@@ -23,14 +23,13 @@ export const ToolsRandomPageClient = () => {
       max: 100,
     },
     onSubmit(formData) {
-      const { min, max } = formData.target as typeof formData.target & {
-        min: {
-          value: string;
-        };
-        max: {
-          value: string;
-        };
-      };
+      const { min, max } = formData.target as typeof formData.target &
+        Record<
+          keyof z.infer<typeof randomSchema>,
+          {
+            value: string;
+          }
+        >;
       setState(random(+min.value, +max.value));
     },
     onValidate({ formData }) {
