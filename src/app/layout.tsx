@@ -1,10 +1,13 @@
 import "the-new-css-reset/css/reset.css";
 import "animate.css";
 import "@/styles/globals.css";
+import crypto from "node:crypto";
+
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Fragment } from "react";
 
 import { BreadcrumbGenerator } from "@/components/breadcrumbGenerator";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -51,24 +54,73 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const links = ["random", "shorten"];
+  const headerLinks: {
+    title: string | React.ReactNode;
+    href: string;
+    key: string;
+  }[] = [
+    {
+      title: "UMT Tools",
+      href: "/",
+      key: crypto.createHash("sha256").update("UMT Tools").digest("hex"),
+    },
+    {
+      title: "Source Code",
+      href: "https://github.com/riya-amemiya/amemiya-riya-tools",
+      key: crypto.createHash("sha256").update("Source Code").digest("hex"),
+    },
+  ];
   return (
     <html lang="ja">
       <body className="w-full">
+        <div className="w-full border-b">
+          <header>
+            <nav className="p-2">
+              <ul className="flex gap-6 items-center text-sm">
+                {headerLinks.map((link) => (
+                  <li key={link.key}>
+                    {link.href.startsWith("http") ? (
+                      <a
+                        href={link.href}
+                        rel="noreferrer noopener"
+                        target="_blank"
+                      >
+                        {link.title}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        rel="noreferrer noopener"
+                        target="_blank"
+                      >
+                        {link.title}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </header>
+        </div>
         <div className="md:grid md:grid-cols-10 md:gap-4 w-full h-full">
-          <ScrollArea className="md:col-span-2 rounded-md border h-full">
-            <div className="p-4">
-              <h4 className="mb-4 text-sm font-medium leading-none">Tools</h4>
+          <ScrollArea className="md:col-span-2 h-full">
+            <div className="md:p-4">
+              <h4 className="mb-4 text-sm font-medium leading-none">
+                <Link href="/">Tools</Link>
+              </h4>
               {links.map((tag) => (
-                <>
-                  <div className="text-sm" key={tag}>
+                <Fragment
+                  key={crypto.createHash("sha256").update(tag).digest("hex")}
+                >
+                  <div className="text-sm">
                     <Link href={`/${tag}`}>{tag}</Link>
                   </div>
                   <Separator className="my-2" />
-                </>
+                </Fragment>
               ))}
             </div>
           </ScrollArea>
-          <main className="md:col-span-8">
+          <main className="md:col-span-8 md:p-4">
             <BreadcrumbGenerator />
             {children}
           </main>
