@@ -8,7 +8,7 @@ export const RedirectHomeClient = async () => {
   return (
     <form action={shorten} className="text-center w-full">
       <Input className="w-full" name="url" required={true} />
-      <Button className="mt-4">Shorten</Button>
+      <Button className="mt-4">Create</Button>
     </form>
   );
 };

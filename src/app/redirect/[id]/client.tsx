@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-export const ShortenCreatedClient = () => {
+export const RedirectCreatedClient = () => {
   const parameters = useParams<{ id: string }>();
   return (
     <div>

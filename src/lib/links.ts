@@ -14,8 +14,8 @@ export const links: {
     href: "random",
   },
   {
-    title: "Shorten URL",
-    description: "Shorten a URL",
-    href: "shorten",
+    title: "Redirect URL Generator",
+    description: "Create a redirect URL",
+    href: "redirect",
   },
 ] as const;
