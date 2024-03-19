@@ -55,10 +55,7 @@ export const ToolsBase64PageClient = () => {
         <div>
           <div>
             <Label htmlFor={fields.text.id}>Text</Label>
-            <Input
-              {...getInputProps(fields.text, { type: "text" })}
-              key={fields.text.initialValue}
-            />
+            <Input {...getInputProps(fields.text, { type: "text" })} />
             <ErrorMessage>{fields.text.errors}</ErrorMessage>
           </div>
         </div>
