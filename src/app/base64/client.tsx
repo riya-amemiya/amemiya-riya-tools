@@ -2,7 +2,6 @@
 
 import { useForm, getInputProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
-import { useState } from "react";
 import { fromBase64 } from "umt/module/String/fromBase64";
 import { toBase64 } from "umt/module/String/toBase64";
 import { z } from "zod";
@@ -13,7 +12,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export const ToolsBase64PageClient = () => {
-  const [state, setState] = useState("");
   const base64Schema = z.object({
     text: z.string().min(1),
   });
@@ -28,9 +26,15 @@ export const ToolsBase64PageClient = () => {
         (formData.nativeEvent as SubmitEvent)?.submitter as HTMLButtonElement
       ).name as "encode" | "decode";
       if (submitterName === "encode") {
-        setState(toBase64(text.value));
+        form.update({
+          name: fields.text.name,
+          value: toBase64(text.value),
+        });
       } else {
-        setState(fromBase64(text.value));
+        form.update({
+          name: fields.text.name,
+          value: fromBase64(text.value),
+        });
       }
     },
     onValidate({ formData }) {
@@ -40,7 +44,6 @@ export const ToolsBase64PageClient = () => {
   });
   return (
     <div className="text-center w-full">
-      <Input value={state} />
       <form
         id={form.id}
         noValidate={true}
@@ -52,7 +55,10 @@ export const ToolsBase64PageClient = () => {
         <div>
           <div>
             <Label htmlFor={fields.text.id}>Text</Label>
-            <Input {...getInputProps(fields.text, { type: "text" })} />
+            <Input
+              {...getInputProps(fields.text, { type: "text" })}
+              key={fields.text.initialValue}
+            />
             <ErrorMessage>{fields.text.errors}</ErrorMessage>
           </div>
         </div>
