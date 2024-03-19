@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Fragment } from "react";
 
 import {
   Breadcrumb,
@@ -32,12 +33,14 @@ export const BreadcrumbGenerator = () => {
               );
             }
             return (
-              <BreadcrumbItem key={path}>
-                <BreadcrumbLink asChild={true}>
-                  <Link href={`/${path}`}>{path || "Home"}</Link>
-                </BreadcrumbLink>
+              <Fragment key={path}>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild={true}>
+                    <Link href={`/${path}`}>{path || "Home"}</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
                 <BreadcrumbSeparator />
-              </BreadcrumbItem>
+              </Fragment>
             );
           })
         )}

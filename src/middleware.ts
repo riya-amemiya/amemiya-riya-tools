@@ -8,6 +8,7 @@ export function middleware(request: NextRequest) {
       process.env.NODE_ENV === "development" && "'unsafe-eval'"
     } 'strict-dynamic' https://static.cloudflareinsights.com;
     style-src 'self' 'nonce-${nonce}';
+    connect-src 'self';
     img-src 'self' blob: data:;
     font-src 'self';
     object-src 'none';

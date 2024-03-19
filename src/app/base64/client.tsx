@@ -15,27 +15,9 @@ export const ToolsBase64PageClient = () => {
   const base64Schema = z.object({
     text: z.string().min(1),
   });
-  const [form, fields] = useForm({
+  const [form, { text }] = useForm({
     defaultValue: {
       text: "Hello",
-    },
-    onSubmit(formData) {
-      const { text } = formData.target as typeof formData.target &
-        Record<keyof z.infer<typeof base64Schema>, { value: string }>;
-      const submitterName = (
-        (formData.nativeEvent as SubmitEvent)?.submitter as HTMLButtonElement
-      ).name as "encode" | "decode";
-      if (submitterName === "encode") {
-        form.update({
-          name: fields.text.name,
-          value: toBase64(text.value),
-        });
-      } else {
-        form.update({
-          name: fields.text.name,
-          value: fromBase64(text.value),
-        });
-      }
     },
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: base64Schema });
@@ -54,16 +36,30 @@ export const ToolsBase64PageClient = () => {
       >
         <div>
           <div>
-            <Label htmlFor={fields.text.id}>Text</Label>
-            <Input {...getInputProps(fields.text, { type: "text" })} />
-            <ErrorMessage>{fields.text.errors}</ErrorMessage>
+            <Label htmlFor={text.id}>Text</Label>
+            <Input {...getInputProps(text, { type: "text" })} />
+            <ErrorMessage>{text.errors}</ErrorMessage>
           </div>
         </div>
         <div className="flex gap-2 items-center justify-center">
-          <Button className="mt-4" name="encode" type="submit">
+          <Button
+            className="mt-4"
+            type="submit"
+            {...form.update.getButtonProps({
+              name: text.name,
+              value: toBase64(text.value || ""),
+            })}
+          >
             Encode
           </Button>
-          <Button className="mt-4" name="decode" type="submit">
+          <Button
+            className="mt-4"
+            type="submit"
+            {...form.update.getButtonProps({
+              name: text.name,
+              value: fromBase64(text.value || ""),
+            })}
+          >
             Decode
           </Button>
         </div>
