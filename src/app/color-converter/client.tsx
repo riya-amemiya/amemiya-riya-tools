@@ -1,6 +1,6 @@
 "use client";
 
-import { useForm, getInputProps } from "@conform-to/react";
+import { useForm, getInputProps, type FieldMetadata } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { type FormEvent, useState } from "react";
 import { type RgbaColor, RgbaColorPicker } from "react-colorful";
@@ -19,19 +19,77 @@ export const ToolsColorConverterPageClient = () => {
       .string()
       .min(1)
       .regex(/^#[\dA-Fa-f]{6}([\dA-Fa-f]{2})?$/, { message: "Invalid hexa" }),
-    rgba: z.string().min(1),
+    rgba: z
+      .string()
+      .min(1)
+      .regex(/^rgba\((?:\d{1,3}, ){3}(0(\.\d+)?|1(\.0+)?)\)$/, {
+        message: "Invalid rgba",
+      }),
     hsla: z.string().min(1),
     cmyk: z.string().min(1),
   });
   const [form, { hexa, rgba, hsla, cmyk }] = useForm({
     defaultValue: {
       hexa: rgbaToHexA(color),
+      rgba: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+      hsla: "Coming soon",
+      cmyk: "Coming soon",
     },
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: base64Schema });
     },
     shouldValidate: "onInput",
   });
+  const setFormValues = (newColor: RgbaColor) => {
+    setColor(newColor);
+    form.update({
+      name: hexa.name,
+      value: rgbaToHexA(newColor),
+    });
+    form.update({
+      name: rgba.name,
+      value: `rgba(${newColor.r}, ${newColor.g}, ${newColor.b}, ${newColor.a})`,
+    });
+  };
+  const items: {
+    type: FieldMetadata<
+      string,
+      {
+        hexa: string;
+        rgba: string;
+        hsla: string;
+        cmyk: string;
+      },
+      string[]
+    >;
+    onInput?: (event: FormEvent<HTMLInputElement>) => void;
+  }[] = [
+    {
+      type: hexa,
+      onInput: (event) => {
+        const value = (event.target as HTMLInputElement).value;
+        if (/^#[\dA-Fa-f]{6}([\dA-Fa-f]{2})?$/.test(value)) {
+          setFormValues(hexToRgba(value));
+        }
+      },
+    },
+    {
+      type: rgba,
+      onInput: (event) => {
+        const value = (event.target as HTMLInputElement).value;
+        if (/^rgba\((?:\d{1,3}, ){3}(0(\.\d+)?|1(\.0+)?)\)$/.test(value)) {
+          const [r = 0, g = 0, b = 0, a = 1] = value
+            .replace(/^rgba\(/, "")
+            .replace(/\)$/, "")
+            .split(", ")
+            .map(Number);
+          setFormValues({ r, g, b, a });
+        }
+      },
+    },
+    { type: hsla },
+    { type: cmyk },
+  ];
   return (
     <div className="text-center w-full">
       <div className="flex items-center justify-center mb-5">
@@ -59,20 +117,7 @@ export const ToolsColorConverterPageClient = () => {
         }}
       >
         <div className="md:grid md:grid-cols-12 md:gap-4">
-          {[
-            {
-              type: hexa,
-              onInput: (event: FormEvent<HTMLInputElement>) => {
-                const value = (event.target as HTMLInputElement).value;
-                if (/^#[\dA-Fa-f]{6}([\dA-Fa-f]{2})?$/.test(value)) {
-                  setColor(hexToRgba(value));
-                }
-              },
-            },
-            { type: rgba },
-            { type: hsla },
-            { type: cmyk },
-          ].map(({ type, onInput }) => {
+          {items.map(({ type, onInput }) => {
             return (
               <div className="md:col-span-3" key={type.name}>
                 <Label htmlFor={type.id}>{type.name.toUpperCase()}</Label>
