@@ -16,10 +16,10 @@ const Index = async () => {
   return (
     <div>
       <h1 className="text-3xl my-4">UMT Tools</h1>
-      <div className="flex items-center gap-2">
+      <div className="md:grid md:grid-cols-9 md:gap-4">
         {links.map(({ title, description, href }) => (
           <Card
-            className="w-1/3"
+            className="md:col-span-3"
             key={crypto.createHash("sha256").update(href).digest("hex")}
           >
             <CardHeader>

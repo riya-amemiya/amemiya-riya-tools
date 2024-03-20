@@ -9,6 +9,11 @@ export const links: {
     href: "base64",
   },
   {
+    title: "Color Converter",
+    description: "Convert color formats",
+    href: "color-converter",
+  },
+  {
     title: "Random Number",
     description: "Generate a random number",
     href: "random",
