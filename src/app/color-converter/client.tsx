@@ -22,9 +22,12 @@ export const ToolsColorConverterPageClient = () => {
     rgba: z
       .string()
       .min(1)
-      .regex(/^rgba\((?:\d{1,3}, ){3}(0(\.\d+)?|1(\.0+)?)\)$/, {
-        message: "Invalid rgba",
-      }),
+      .regex(
+        /^rgba\((?:(25[0-5]|2[0-4]\d|[01]?\d\d?), ){3}(0(\.\d+)?|1(\.0+)?)\)$/,
+        {
+          message: "Invalid rgba",
+        },
+      ),
     hsla: z.string().min(1),
     cmyk: z.string().min(1),
   });
@@ -83,7 +86,18 @@ export const ToolsColorConverterPageClient = () => {
             .replace(/\)$/, "")
             .split(", ")
             .map(Number);
-          setFormValues({ r, g, b, a });
+          if (
+            r >= 0 &&
+            r <= 255 &&
+            g >= 0 &&
+            g <= 255 &&
+            b >= 0 &&
+            b <= 255 &&
+            a >= 0 &&
+            a <= 1
+          ) {
+            setFormValues({ r, g, b, a });
+          }
         }
       },
     },
