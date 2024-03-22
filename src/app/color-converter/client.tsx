@@ -4,7 +4,7 @@ import { useForm, getInputProps, type FieldMetadata } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { type FormEvent, useState } from "react";
 import { type RgbaColor, RgbaColorPicker } from "react-colorful";
-import { hexToRgba } from "umt/module/Tool/hexToRgba";
+import { hexaToRgba } from "umt/module/Tool/hexaToRgba";
 import { rgbaToHexA } from "umt/module/Tool/rgbaToHexA";
 import { z } from "zod";
 
@@ -72,7 +72,7 @@ export const ToolsColorConverterPageClient = () => {
       onInput: (event) => {
         const value = (event.target as HTMLInputElement).value;
         if (/^#[\dA-Fa-f]{6}([\dA-Fa-f]{2})?$/.test(value)) {
-          setFormValues(hexToRgba(value));
+          setFormValues(hexaToRgba(value));
         }
       },
     },
