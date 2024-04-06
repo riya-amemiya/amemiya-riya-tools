@@ -5,7 +5,9 @@ import { parseWithZod } from "@conform-to/zod";
 import { type FormEvent, useState } from "react";
 import { type RgbaColor, RgbaColorPicker } from "react-colorful";
 import { hexaToRgba } from "umt/module/Tool/hexaToRgba";
+import { rgbaToCmyk } from "umt/module/Tool/rgbaToCmyk";
 import { rgbaToHexA } from "umt/module/Tool/rgbaToHexA";
+import { rgbaToHsla } from "umt/module/Tool/rgbaToHsla";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";
@@ -28,15 +30,30 @@ export const ToolsColorConverterPageClient = () => {
           message: "Invalid rgba",
         },
       ),
-    hsla: z.string().min(1),
-    cmyk: z.string().min(1),
+    hsla: z
+      .string()
+      .min(1)
+      .regex(
+        /^hsla\(\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?%)\s*,\s*(\d+(?:\.\d+)?%)\s*,\s*(\d+(?:\.\d+)?)\s*\)$/,
+        {
+          message: "Invalid hsla",
+        },
+      ),
+    cmyk: z
+      .string()
+      .min(1)
+      .regex(/^cmyk\((?:\d{1,3}, ){3}\d{1,3}\)$/, {
+        message: "Invalid cmyk",
+      }),
   });
+  let temporaryHsla = rgbaToHsla(color);
+  let temporaryCmyk = rgbaToCmyk(color);
   const [form, { hexa, rgba, hsla, cmyk }] = useForm({
     defaultValue: {
       hexa: rgbaToHexA(color),
       rgba: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
-      hsla: "Coming soon",
-      cmyk: "Coming soon",
+      hsla: `hsla(${temporaryHsla.h}, ${temporaryHsla.s}%, ${temporaryHsla.l}%, ${temporaryHsla.a})`,
+      cmyk: `cmyk(${temporaryCmyk.c}, ${temporaryCmyk.m}, ${temporaryCmyk.y}, ${temporaryCmyk.k})`,
     },
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: base64Schema });
@@ -45,6 +62,8 @@ export const ToolsColorConverterPageClient = () => {
   });
   const setFormValues = (newColor: RgbaColor) => {
     setColor(newColor);
+    temporaryHsla = rgbaToHsla(newColor);
+    temporaryCmyk = rgbaToCmyk(newColor);
     form.update({
       name: hexa.name,
       value: rgbaToHexA(newColor),
@@ -52,6 +71,14 @@ export const ToolsColorConverterPageClient = () => {
     form.update({
       name: rgba.name,
       value: `rgba(${newColor.r}, ${newColor.g}, ${newColor.b}, ${newColor.a})`,
+    });
+    form.update({
+      name: hsla.name,
+      value: `hsla(${temporaryHsla.h}, ${temporaryHsla.s}%, ${temporaryHsla.l}%, ${temporaryHsla.a})`,
+    });
+    form.update({
+      name: cmyk.name,
+      value: `cmyk(${temporaryCmyk.c}, ${temporaryCmyk.m}, ${temporaryCmyk.y}, ${temporaryCmyk.k})`,
     });
   };
   const items: {
@@ -65,11 +92,11 @@ export const ToolsColorConverterPageClient = () => {
       },
       string[]
     >;
-    onInput?: (event: FormEvent<HTMLInputElement>) => void;
+    onBlur?: (event: FormEvent<HTMLInputElement>) => void;
   }[] = [
     {
       type: hexa,
-      onInput: (event) => {
+      onBlur: (event) => {
         const value = (event.target as HTMLInputElement).value;
         if (/^#[\dA-Fa-f]{6}([\dA-Fa-f]{2})?$/.test(value)) {
           setFormValues(hexaToRgba(value));
@@ -78,7 +105,7 @@ export const ToolsColorConverterPageClient = () => {
     },
     {
       type: rgba,
-      onInput: (event) => {
+      onBlur: (event) => {
         const value = (event.target as HTMLInputElement).value;
         if (/^rgba\((?:\d{1,3}, ){3}(0(\.\d+)?|1(\.0+)?)\)$/.test(value)) {
           const [r = 0, g = 0, b = 0, a = 1] = value
@@ -101,8 +128,70 @@ export const ToolsColorConverterPageClient = () => {
         }
       },
     },
-    { type: hsla },
-    { type: cmyk },
+    {
+      type: hsla,
+      onBlur: (event) => {
+        const value = (event.target as HTMLInputElement).value;
+        if (
+          /^hsla\(\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?%)\s*,\s*(\d+(?:\.\d+)?%)\s*,\s*(\d+(?:\.\d+)?)\s*\)$/.test(
+            value,
+          )
+        ) {
+          const [h = 0, s = 0, l = 0, a = 1] = value
+            .replace(/^hsla\(/, "")
+            .replace(/\)$/, "")
+            .split(", ")
+            .map(Number);
+          if (
+            h >= 0 &&
+            h <= 360 &&
+            s >= 0 &&
+            s <= 100 &&
+            l >= 0 &&
+            l <= 100 &&
+            a >= 0 &&
+            a <= 1
+          ) {
+            setFormValues({
+              r: 0,
+              g: 0,
+              b: 0,
+              a: 1,
+            });
+          }
+        }
+      },
+    },
+    {
+      type: cmyk,
+      onBlur: (event) => {
+        const value = (event.target as HTMLInputElement).value;
+        if (/^cmyk\((?:\d{1,3}, ){3}\d{1,3}\)$/.test(value)) {
+          const [c = 0, m = 0, y = 0, k = 0] = value
+            .replace(/^cmyk\(/, "")
+            .replace(/\)$/, "")
+            .split(", ")
+            .map(Number);
+          if (
+            c >= 0 &&
+            c <= 100 &&
+            m >= 0 &&
+            m <= 100 &&
+            y >= 0 &&
+            y <= 100 &&
+            k >= 0 &&
+            k <= 100
+          ) {
+            setFormValues({
+              r: 0,
+              g: 0,
+              b: 0,
+              a: 1,
+            });
+          }
+        }
+      },
+    },
   ];
   return (
     <div className="text-center w-full">
@@ -110,15 +199,7 @@ export const ToolsColorConverterPageClient = () => {
         <RgbaColorPicker
           color={color}
           onChange={(newColor: RgbaColor) => {
-            setColor(newColor);
-            form.update({
-              name: hexa.name,
-              value: rgbaToHexA(newColor),
-            });
-            form.update({
-              name: rgba.name,
-              value: `rgba(${newColor.r}, ${newColor.g}, ${newColor.b}, ${newColor.a})`,
-            });
+            setFormValues(newColor);
           }}
         />
       </div>
@@ -131,12 +212,12 @@ export const ToolsColorConverterPageClient = () => {
         }}
       >
         <div className="md:grid md:grid-cols-12 md:gap-4">
-          {items.map(({ type, onInput }) => {
+          {items.map(({ type, onBlur }) => {
             return (
-              <div className="md:col-span-3" key={type.name}>
+              <div className="md:col-span-6" key={type.name}>
                 <Label htmlFor={type.id}>{type.name.toUpperCase()}</Label>
                 <Input
-                  onInput={onInput}
+                  onBlur={onBlur}
                   {...getInputProps(type, { type: "text" })}
                 />
                 <ErrorMessage>{type.errors}</ErrorMessage>
