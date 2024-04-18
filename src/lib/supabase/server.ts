@@ -1,9 +1,8 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
-import type { cookies } from "next/headers";
+import { cookies } from "next/headers";
 
-export const createClient = <Database>(
-  cookieStore: ReturnType<typeof cookies>,
-) => {
+export const createClient = <Database>() => {
+  const cookieStore = cookies();
   return createServerClient<Database>(
     // biome-ignore lint/style/noNonNullAssertion: <explanation>
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
