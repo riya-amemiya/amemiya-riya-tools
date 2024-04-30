@@ -23,4 +23,9 @@ export const links: {
     description: "Create a redirect URL",
     href: "redirect",
   },
+  {
+    title: "Hash Converter",
+    description: "Convert between hash types",
+    href: "hash",
+  },
 ] as const;
