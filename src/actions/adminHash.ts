@@ -6,7 +6,6 @@ import { redirect } from "next/navigation";
 
 import { adminHashSchema } from "@/schema/adminHash";
 export async function adminHash(formData: FormData) {
-  console.log(formData);
   const submission = parseWithZod(formData, {
     schema: adminHashSchema,
   });
@@ -18,7 +17,5 @@ export async function adminHash(formData: FormData) {
   const value = formData.get("value") as string;
   // md5に変換する処理
   const hashMd5 = CryptoJS.MD5(value).toString();
-
-  // 16進数の文字列を返す
-  console.log({ hashMd5 });
+  return hashMd5;
 }
