@@ -57,7 +57,13 @@ export const ToolsBase64PageClient = () => {
             type="submit"
             {...form.update.getButtonProps({
               name: text.name,
-              value: fromBase64(text.value || ""),
+              value: (() => {
+                try {
+                  return fromBase64(text.value || "");
+                } catch {
+                  return text.value;
+                }
+              })(),
             })}
           >
             Decode
