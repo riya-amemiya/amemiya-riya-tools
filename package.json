@@ -12,8 +12,8 @@
   "dependencies": {
     "@baselime/node-opentelemetry": "^0.5.8",
     "@biomejs/biome": "1.7.3",
-    "@conform-to/react": "^1.1.3",
-    "@conform-to/zod": "^1.1.3",
+    "@conform-to/react": "^1.1.4",
+    "@conform-to/zod": "^1.1.4",
     "@hookform/resolvers": "^3.4.2",
     "@million/lint": "latest",
     "@radix-ui/react-accordion": "^1.1.2",
@@ -47,7 +47,7 @@
     "eslint-plugin-testing-library": "^6.2.2",
     "geist": "^1.3.0",
     "htmr": "^1.0.2",
-    "lucide-react": "^0.379.0",
+    "lucide-react": "^0.381.0",
     "microcms-js-sdk": "^3.1.1",
     "million": "latest",
     "next": "latest",
@@ -69,17 +69,17 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^8.1.3",
-    "@storybook/addon-interactions": "^8.1.3",
-    "@storybook/addon-links": "^8.1.3",
-    "@storybook/addon-onboarding": "^8.1.3",
-    "@storybook/addon-viewport": "^8.1.3",
-    "@storybook/blocks": "^8.1.3",
-    "@storybook/nextjs": "^8.1.3",
-    "@storybook/react": "^8.1.3",
-    "@storybook/test": "^8.1.3",
+    "@storybook/addon-essentials": "^8.1.5",
+    "@storybook/addon-interactions": "^8.1.5",
+    "@storybook/addon-links": "^8.1.5",
+    "@storybook/addon-onboarding": "^8.1.5",
+    "@storybook/addon-viewport": "^8.1.5",
+    "@storybook/blocks": "^8.1.5",
+    "@storybook/nextjs": "^8.1.5",
+    "@storybook/react": "^8.1.5",
+    "@storybook/test": "^8.1.5",
     "@types/crypto-js": "^4.2.2",
-    "@types/node": "20.12.12",
+    "@types/node": "20.12.13",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "dependency-cruiser": "^16.3.2",
@@ -90,6 +90,6 @@
     "eslint-plugin-security": "^3.0.0",
     "eslint-plugin-storybook": "^0.8.0",
     "eslint-plugin-unicorn": "^53.0.0",
-    "storybook": "^8.1.3"
+    "storybook": "^8.1.5"
   }
 }
