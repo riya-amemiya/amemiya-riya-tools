@@ -90,6 +90,7 @@
     "eslint-plugin-security": "^3.0.0",
     "eslint-plugin-storybook": "^0.8.0",
     "eslint-plugin-unicorn": "^53.0.0",
+    "openapi-typescript": "^7.0.0",
     "storybook": "^8.1.5"
   },
   "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"

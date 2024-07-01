@@ -28,4 +28,9 @@ export const links: {
     description: "Convert between hash types",
     href: "hash",
   },
+  {
+    title: "UUID Generator",
+    description: "Generate UUIDs",
+    href: "uuid",
+  },
 ] as const;
