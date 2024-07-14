@@ -6,7 +6,8 @@
 			"module",
 			"*.json",
 			"doc",
-			".next"
+			".next",
+			".vercel"
 		]
 	},
 	"formatter": {

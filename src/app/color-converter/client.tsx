@@ -4,10 +4,10 @@ import { useForm, getInputProps, type FieldMetadata } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { type FormEvent, useState } from "react";
 import { type RgbaColor, RgbaColorPicker } from "react-colorful";
-import { hexaToRgba } from "umt/module/Tool/hexaToRgba";
-import { rgbaToCmyk } from "umt/module/Tool/rgbaToCmyk";
-import { rgbaToHexA } from "umt/module/Tool/rgbaToHexA";
-import { rgbaToHsla } from "umt/module/Tool/rgbaToHsla";
+import { hexaToRgba } from "umt/module/Color/hexaToRgba";
+import { rgbaToCmyk } from "umt/module/Color/rgbaToCmyk";
+import { rgbaToHexA } from "umt/module/Color/rgbaToHexA";
+import { rgbaToHsla } from "umt/module/Color/rgbaToHsla";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";
