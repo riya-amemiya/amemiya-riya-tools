@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.7.0/schema.json",
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
 	"files": {
 		"ignore": [
 			"node_modules",
@@ -40,7 +40,8 @@
 			"tests",
 			".dependency-cruiser.js",
 			"components/ui/**/*.tsx",
-			"components/ui/**/*.ts"
+			"components/ui/**/*.ts",
+			"tailwind.config.js"
 		],
 		"rules": {
 			"a11y": {
@@ -55,16 +56,12 @@
 				"noUndeclaredVariables": "warn",
 				"noUnusedVariables": "warn",
 				"useExhaustiveDependencies": "warn",
-				"useHookAtTopLevel": "error"
+				"useHookAtTopLevel": "error",
+				"noConstantMathMinMaxClamp": "error",
+				"noFlatMapIdentity": "error"
 			},
 			"nursery": {
-				"noConstantMathMinMaxClamp": "error",
-				"noDoneCallback": "error",
-				"noDuplicateElseIf": "error",
-				"noDuplicateJsonKeys": "error",
-				"noEvolvingAny": "error",
-				"noFlatMapIdentity": "error",
-				"noMisplacedAssertion": "error"
+				"noDuplicateElseIf": "error"
 			},
 			"recommended": true,
 			"style": {
@@ -85,11 +82,13 @@
 				},
 				"useShorthandArrayType": "error",
 				"useShorthandAssign": "error",
-				"useSingleCaseStatement": "error"
+				"useSingleCaseStatement": "error",
+				"noDoneCallback": "error"
 			},
 			"suspicious": {
 				"noEmptyBlockStatements": "error",
-				"noSkippedTests": "error"
+				"noSkippedTests": "error",
+				"noMisplacedAssertion": "error"
 			}
 		}
 	},

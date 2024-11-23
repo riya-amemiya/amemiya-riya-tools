@@ -6,13 +6,9 @@ import withVercelToolbar from "@vercel/toolbar/plugins/next";
 const nextConfig = {
   output: "standalone",
   reactStrictMode: true,
-  swcMinify: true,
   compiler: {
     // 本番環境ではconsole.logを削除する
     removeConsole: process.env.NODE_ENV === "production",
-  },
-  experimental: {
-    instrumentationHook: true,
   },
   headers() {
     return process.env.NODE_ENV === "production"

@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,7 +8,8 @@ import type { Database } from "@/types/supabase";
 import { AdminPageClient } from "./client";
 
 const AdminPage = async () => {
-  const supabase = createClient<Database>();
+  const cookieStore = await cookies();
+  const supabase = createClient<Database>(cookieStore);
   const { data, error } = await supabase.auth.getUser();
   if (error || !data?.user) {
     redirect("/login");
