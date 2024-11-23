@@ -101,7 +101,7 @@ export default function RootLayout({
           </header>
         </div>
         <div className="md:grid md:grid-cols-10 md:gap-4 w-full h-full">
-          <ScrollArea className="md:col-span-2 h-full">
+          <ScrollArea className="md:col-span-2 h-full max-sm:hidden">
             <div className="md:p-4">
               <h4 className="mb-4 text-sm font-medium leading-none">
                 <Link href="/">Tools</Link>
