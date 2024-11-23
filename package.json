@@ -92,7 +92,8 @@
     "eslint-plugin-storybook": "^0.11.1",
     "eslint-plugin-unicorn": "^56.0.1",
     "openapi-typescript": "^7.4.3",
-    "storybook": "^8.4.5"
+    "storybook": "^8.4.5",
+    "turbo": "^2.3.1"
   },
   "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
 }

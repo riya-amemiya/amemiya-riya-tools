@@ -3,7 +3,9 @@
 import { useForm, getInputProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useState } from "react";
-import { division, roundOf, subtract } from "umt";
+import { division } from "umt/module/Math/division";
+import { roundOf } from "umt/module/Math/roundOf";
+import { subtract } from "umt/module/Math/subtract";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";
