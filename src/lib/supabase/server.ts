@@ -1,8 +1,7 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
-import { cookies } from "next/headers";
+import type { UnsafeUnwrappedCookies } from "next/headers";
 
-export const createClient = <Database>() => {
-  const cookieStore = cookies();
+export const createClient = <Database>(cookieStore: UnsafeUnwrappedCookies) => {
   return createServerClient<Database>(
     // biome-ignore lint/style/noNonNullAssertion: <explanation>
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

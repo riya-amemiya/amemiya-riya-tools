@@ -2,6 +2,7 @@
 
 import { parseWithZod } from "@conform-to/zod";
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
@@ -16,7 +17,8 @@ export async function login(_: unknown, formData: FormData) {
   if (submission.status !== "success") {
     return submission.reply();
   }
-  const supabase = createClient<Database>();
+  const cookieStore = await cookies();
+  const supabase = createClient<Database>(cookieStore);
   const data = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,

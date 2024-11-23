@@ -2,13 +2,16 @@
 
 import { parseWithZod } from "@conform-to/zod";
 import CryptoJS from "crypto-js";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
 import { adminHashSchema } from "@/schema/adminHash";
 import type { Database } from "@/types/supabase";
+
 export async function adminHash(formData: FormData) {
-  const supabase = createClient<Database>();
+  const cookieStore = await cookies();
+  const supabase = createClient<Database>(cookieStore);
   const submission = parseWithZod(formData, {
     schema: adminHashSchema,
   });

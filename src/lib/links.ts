@@ -33,4 +33,9 @@ export const links: {
     description: "Generate UUIDs",
     href: "uuid",
   },
+  {
+    title: "Microwave Oven Calculator",
+    description: "Calculate microwave oven time",
+    href: "microwave-oven-calculator",
+  },
 ] as const;
