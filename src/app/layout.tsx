@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { Fragment } from "react";
 
 import { BreadcrumbGenerator } from "@/components/breadcrumbGenerator";
@@ -69,7 +70,7 @@ export default function RootLayout({
     <html lang="ja">
       <head>
         {process.env.NODE_ENV !== "production" && (
-          <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+          <Script src="https://unpkg.com/react-scan/dist/auto.global.js" />
         )}
       </head>
       <body className="w-full">

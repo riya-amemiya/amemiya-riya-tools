@@ -53,18 +53,20 @@
 				"useSimplifiedLogicExpression": "error"
 			},
 			"correctness": {
+				"noConstantMathMinMaxClamp": "error",
+				"noFlatMapIdentity": "error",
 				"noUndeclaredVariables": "warn",
+				"noUnusedImports": "error",
 				"noUnusedVariables": "warn",
 				"useExhaustiveDependencies": "warn",
-				"useHookAtTopLevel": "error",
-				"noConstantMathMinMaxClamp": "error",
-				"noFlatMapIdentity": "error"
+				"useHookAtTopLevel": "error"
 			},
 			"nursery": {
 				"noDuplicateElseIf": "error"
 			},
 			"recommended": true,
 			"style": {
+				"noDoneCallback": "error",
 				"noImplicitBoolean": "warn",
 				"noNamespaceImport": "error",
 				"noNegationElse": "error",
@@ -82,13 +84,12 @@
 				},
 				"useShorthandArrayType": "error",
 				"useShorthandAssign": "error",
-				"useSingleCaseStatement": "error",
-				"noDoneCallback": "error"
+				"useSingleCaseStatement": "error"
 			},
 			"suspicious": {
 				"noEmptyBlockStatements": "error",
-				"noSkippedTests": "error",
-				"noMisplacedAssertion": "error"
+				"noMisplacedAssertion": "error",
+				"noSkippedTests": "error"
 			}
 		}
 	},
