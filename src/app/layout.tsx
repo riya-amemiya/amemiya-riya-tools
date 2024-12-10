@@ -67,6 +67,11 @@ export default function RootLayout({
   ];
   return (
     <html lang="ja">
+      <head>
+        {process.env.NODE_ENV !== "production" && (
+          <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+        )}
+      </head>
       <body className="w-full">
         <div className="w-full border-b">
           <header>

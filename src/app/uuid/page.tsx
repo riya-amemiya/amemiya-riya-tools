@@ -4,7 +4,6 @@ import { UuidHomeClient } from "./client";
 
 const UuidHomePage = async () => {
   return (
-    // 真ん中に表示する
     <Card className="max-w-md mx-auto bg-slate-50 rounded-xl shadow-md md:max-w-2xl w-full md:p-10 p-6">
       <CardContent>
         <div className="flex flex-col items-center justify-center">
