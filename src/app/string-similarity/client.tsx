@@ -3,8 +3,7 @@
 import { useForm, getInputProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useState } from "react";
-import { levenshteinDistance } from "umt/module/String/levenshteinDistance";
-import { stringSimilarity } from "umt/module/String/stringSimilarity";
+import { levenshteinDistance, stringSimilarity } from "umt/String";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";

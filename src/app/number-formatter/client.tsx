@@ -3,8 +3,7 @@
 import { useForm, getInputProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useState } from "react";
-import { toOrdinal } from "umt/module/Number/toOrdinal";
-import { toPercentage } from "umt/module/Number/toPercentage";
+import { toOrdinal, toPercentage } from "umt/Number";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";
@@ -34,11 +33,11 @@ export const ToolsNumberFormatterPageClient = () => {
             value: string;
           }
         >;
-      const valueNum = +value.value;
-      const totalNum = +total.value;
+      const valueNumber = +value.value;
+      const totalNumber = +total.value;
       setState({
-        ordinal: toOrdinal(valueNum),
-        percentage: toPercentage(valueNum, totalNum),
+        ordinal: toOrdinal(valueNumber),
+        percentage: toPercentage(valueNumber, totalNumber),
       });
     },
     onValidate({ formData }) {

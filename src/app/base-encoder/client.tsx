@@ -2,10 +2,12 @@
 
 import { useForm, getInputProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
-import { decodeBase32 } from "umt/module/Crypto/decodeBase32";
-import { decodeBase58 } from "umt/module/Crypto/decodeBase58";
-import { encodeBase32 } from "umt/module/Crypto/encodeBase32";
-import { encodeBase58 } from "umt/module/Crypto/encodeBase58";
+import {
+  decodeBase32,
+  decodeBase58,
+  encodeBase32,
+  encodeBase58,
+} from "umt/Crypto";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";

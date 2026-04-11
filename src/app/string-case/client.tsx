@@ -2,9 +2,7 @@
 
 import { useForm, getInputProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
-import { camelCase } from "umt/module/String/camelCase";
-import { kebabCase } from "umt/module/String/kebabCase";
-import { slugify } from "umt/module/String/slugify";
+import { camelCase, kebabCase, slugify } from "umt/String";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";

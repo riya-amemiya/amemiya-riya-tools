@@ -3,7 +3,7 @@
 import { useForm, getInputProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useState } from "react";
-import { random } from "umt/module/Math/random";
+import { random } from "umt/Math";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";

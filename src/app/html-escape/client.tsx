@@ -2,8 +2,7 @@
 
 import { useForm, getInputProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
-import { escapeHtml } from "umt/module/String/escapeHtml";
-import { unescapeHtml } from "umt/module/String/unescapeHtml";
+import { escapeHtml, unescapeHtml } from "umt/String";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";

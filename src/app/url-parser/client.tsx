@@ -3,7 +3,7 @@
 import { useForm, getInputProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useState } from "react";
-import { parseQueryString } from "umt/module/URL/parseQueryString";
+import { parseQueryString } from "umt/URL";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";

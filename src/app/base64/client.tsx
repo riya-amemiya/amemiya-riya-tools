@@ -2,8 +2,7 @@
 
 import { useForm, getInputProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
-import { fromBase64 } from "umt/module/String/fromBase64";
-import { toBase64 } from "umt/module/String/toBase64";
+import { fromBase64, toBase64 } from "umt/String";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";

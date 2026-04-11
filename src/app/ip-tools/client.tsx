@@ -3,10 +3,7 @@
 import { useForm, getInputProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useState } from "react";
-import { getIpClass } from "umt/module/IP/getIpClass";
-import { ipToLong } from "umt/module/IP/ipToLong";
-import { isPrivateIp } from "umt/module/IP/isPrivateIp";
-import { longToIp } from "umt/module/IP/longToIp";
+import { getIpClass, ipToLong, isPrivateIp, longToIp } from "umt/IP";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";

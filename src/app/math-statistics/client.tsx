@@ -3,9 +3,7 @@
 import { useForm, getInputProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useState } from "react";
-import { average } from "umt/module/Math/average";
-import { median } from "umt/module/Math/median";
-import { standardDeviation } from "umt/module/Math/standardDeviation";
+import { average, median, standardDeviation } from "umt/Math";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";

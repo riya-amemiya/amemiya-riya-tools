@@ -3,7 +3,7 @@
 import { useForm, getInputProps } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { useState } from "react";
-import { isLeapYear } from "umt/module/Date/isLeapYear";
+import { isLeapYear } from "umt/Date";
 import { z } from "zod";
 
 import { ErrorMessage } from "@/components/form/errorMessage";
@@ -28,11 +28,11 @@ export const ToolsLeapYearPageClient = () => {
             value: string;
           }
         >;
-      const yearNum = +year.value;
+      const yearNumber = +year.value;
       setState(
-        isLeapYear(yearNum)
-          ? `${yearNum} is a leap year`
-          : `${yearNum} is not a leap year`,
+        isLeapYear(yearNumber)
+          ? `${yearNumber} is a leap year`
+          : `${yearNumber} is not a leap year`,
       );
     },
     onValidate({ formData }) {
